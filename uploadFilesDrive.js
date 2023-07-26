@@ -153,26 +153,44 @@ async function uploadFileWithFolderStructure(
       "../fonatur-backend/uploads/etapa2/" + filePath,
       fileName
     );
-    console.log("Last idFolder");
-    console.log(currentFolderId);
-    console.log(pathFileLocal);
     if (fs.existsSync(pathFileLocal)) {
-      const media = {
-        mimeType: "application/pdf",
-        body: fs.createReadStream(pathFileLocal),
-      };
-
-      const response = await drive.files.create({
-        resource: fileMetadata,
-        media: media,
-        fields: "id",
-        supportsAllDrives: true,
+      // Verificar si el archivo ya existe en Google Drive
+      const existingFiles = await drive.files.list({
+        q: `name='${fileName}' and '${currentFolderId}' in parents and trashed=false`,
+        fields: "files(id)",
         driveId: "0ABWQ-szGFxY1Uk9PVA",
+        corpora: "drive",
+        pageSize: 1000,
+        includeItemsFromAllDrives: true,
+        includeTeamDriveItems: true,
+        supportsAllDrives: true,
+        supportsTeamDrives: true,
       });
 
-      console.log(`Archivo subido a Google Drive. ID: ${response.data.id}`);
+      if (existingFiles.data.files.length > 0) {
+        // El archivo ya existe en Google Drive, no se duplica
+        console.log(
+          `El archivo '${fileName}' ya existe en Google Drive. No se duplicará.`
+        );
+      } else {
+        // El archivo no existe en Google Drive, proceder a subirlo
+        const media = {
+          mimeType: "application/pdf",
+          body: fs.createReadStream(pathFileLocal),
+        };
+
+        const response = await drive.files.create({
+          resource: fileMetadata,
+          media: media,
+          fields: "id",
+          supportsAllDrives: true,
+          driveId: "0ABWQ-szGFxY1Uk9PVA",
+        });
+
+        console.log(`Archivo subido a Google Drive. ID: ${response.data.id}`);
+      }
     } else {
-      console.log("Archivo  no existe");
+      console.log("Archivo no existe en la ubicación local.");
     }
   } catch (error) {
     console.error("Error al subir el archivo a Google Drive:", error.message);
