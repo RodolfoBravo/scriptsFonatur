@@ -68,32 +68,30 @@ async function authorize() {
 }
 
 async function createFolder(drive, parentFolderId, folderName) {
-  setTimeout(async () => {
+  try {
     console.log("creating folder");
-    try {
-      console.log("Se crea carpeta");
-      const folderMetadata = {
-        name: folderName,
-        mimeType: "application/vnd.google-apps.folder",
-        parents: [parentFolderId],
-      };
+    const folderMetadata = {
+      name: folderName,
+      mimeType: "application/vnd.google-apps.folder",
+      parents: [parentFolderId],
+    };
 
-      const createResponse = await drive.files.create({
-        resource: folderMetadata,
-        fields: "id",
-        supportsAllDrives: true,
-        driveId: "0ABWQ-szGFxY1Uk9PVA",
-      });
+    const createResponse = await drive.files.create({
+      resource: folderMetadata,
+      fields: "id",
+      supportsAllDrives: true,
+      driveId: "0ABWQ-szGFxY1Uk9PVA",
+    });
 
-      return createResponse.data.id;
-    } catch (error) {
-      console.error(
-        "Error al crear/actualizar la carpeta en Google Drive:",
-        error.message
-      );
-      throw error;
-    }
-  }, 1000);
+    console.log("Se crea carpeta");
+    return createResponse.data.id;
+  } catch (error) {
+    console.error(
+      "Error al crear/actualizar la carpeta en Google Drive:",
+      error.message
+    );
+    throw error;
+  }
 }
 
 async function uploadFileWithFolderStructure(
@@ -152,7 +150,7 @@ async function uploadFileWithFolderStructure(
 
   try {
     const pathFileLocal = path.join(
-      "../fonatur-backend/uploads/etapa2/" + filePath,
+      "/home/rodolfobravogarci/fonatur-backend/uploads/etapa2/" + filePath,
       fileName
     );
     if (fs.existsSync(pathFileLocal)) {
@@ -178,7 +176,10 @@ async function uploadFileWithFolderStructure(
 
 async function getDocumentsSplit() {
   const collectionRef = admin.firestore().collection("db-split-files");
-  const querySnapshot = await collectionRef.limit(2).get();
+  const querySnapshot = await collectionRef
+    .where("tramo", "==", "tramo1")
+    .limit(2)
+    .get();
   return querySnapshot;
 }
 
@@ -188,7 +189,8 @@ async function runScript() {
   try {
     const authClient = await authorize();
     const getData = await getDocumentsSplit();
-    const promises = getData.docs.map(async (doc) => {
+
+    for (const doc of getData.docs) {
       const data = doc.data();
       const filePath = doc.data().filePathOut;
       const fileName = doc.data().fileNameIn;
@@ -199,9 +201,7 @@ async function runScript() {
         parentFolderId,
         fileName
       );
-    });
-
-    await Promise.all(promises);
+    }
   } catch (error) {
     console.error("Error al ejecutar el script:", error.message);
   }
