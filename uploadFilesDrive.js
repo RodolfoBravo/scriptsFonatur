@@ -198,7 +198,7 @@ async function runScript() {
     for (const doc of getData.docs) {
       const data = doc.data();
       const filePath = doc.data().filePathOut;
-      const fileName = doc.data().fileNameIn;
+      const fileName = doc.data().fileNameOut;
       console.log(data);
       await uploadFileWithFolderStructure(
         authClient,
