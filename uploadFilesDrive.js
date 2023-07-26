@@ -150,7 +150,7 @@ async function uploadFileWithFolderStructure(
 
   try {
     const pathFileLocal = path.join(
-      "/home/rodolfobravogarci/fonatur-backend/uploads/etapa2/" + filePath,
+      "../fonatur-backend/uploads/etapa2/" + filePath,
       fileName
     );
     console.log("Last idFolder");
