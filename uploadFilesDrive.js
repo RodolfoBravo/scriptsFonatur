@@ -153,6 +153,9 @@ async function uploadFileWithFolderStructure(
       "/home/rodolfobravogarci/fonatur-backend/uploads/etapa2/" + filePath,
       fileName
     );
+    console.log("Last idFolder");
+    console.log(currentFolderId);
+    console.log(pathFileLocal);
     if (fs.existsSync(pathFileLocal)) {
       const media = {
         mimeType: "application/pdf",
