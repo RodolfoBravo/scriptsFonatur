@@ -86,7 +86,6 @@ async function createFolder(drive, parentFolderId, folderName) {
       if (response.data.files.length > 0) {
         // La carpeta ya existe en Google Drive, retornamos su ID
         console.log("La carpeta ya existe en Google Drive ", response.data);
-        vgt;
         return response.data.files[0].id;
       } else {
         console.log("Se crea carpeta");
@@ -125,7 +124,7 @@ async function uploadFileWithFolderStructure(
 
   const fileComponents = filePath.split("/");
   let currentFolderId = parentFolderId; // ID de la carpeta actual
-
+  console.log(fileComponents);
   for (const folderName of fileComponents) {
     console.log(folderName);
     try {
