@@ -71,39 +71,21 @@ async function createFolder(drive, parentFolderId, folderName) {
   setTimeout(async () => {
     console.log("creating folder");
     try {
-      const response = await drive.files.list({
-        q: `'${parentFolderId}' in parents and name='${folderName}' and mimeType='application/vnd.google-apps.folder' and trashed=false`,
-        fields: "files(id)",
-        driveId: "0ABWQ-szGFxY1Uk9PVA",
-        corpora: "drive",
-        pageSize: 1000,
-        includeItemsFromAllDrives: true,
-        includeTeamDriveItems: true,
+      console.log("Se crea carpeta");
+      const folderMetadata = {
+        name: folderName,
+        mimeType: "application/vnd.google-apps.folder",
+        parents: [parentFolderId],
+      };
+
+      const createResponse = await drive.files.create({
+        resource: folderMetadata,
+        fields: "id",
         supportsAllDrives: true,
-        supportsTeamDrives: true,
+        driveId: "0ABWQ-szGFxY1Uk9PVA",
       });
 
-      if (response.data.files.length > 0) {
-        // La carpeta ya existe en Google Drive, retornamos su ID
-        console.log("La carpeta ya existe en Google Drive ", response.data);
-        return response.data.files[0].id;
-      } else {
-        console.log("Se crea carpeta");
-        const folderMetadata = {
-          name: folderName,
-          mimeType: "application/vnd.google-apps.folder",
-          parents: [parentFolderId],
-        };
-
-        const createResponse = await drive.files.create({
-          resource: folderMetadata,
-          fields: "id",
-          supportsAllDrives: true,
-          driveId: "0ABWQ-szGFxY1Uk9PVA",
-        });
-
-        return createResponse.data.id;
-      }
+      return createResponse.data.id;
     } catch (error) {
       console.error(
         "Error al crear/actualizar la carpeta en Google Drive:",
@@ -124,7 +106,8 @@ async function uploadFileWithFolderStructure(
 
   const fileComponents = filePath.split("/");
   let currentFolderId = parentFolderId; // ID de la carpeta actual
-  console.log(fileComponents);
+  //console.log(currentFolderId);
+  //console.log(fileComponents);
   for (const folderName of fileComponents) {
     console.log(folderName);
     try {
