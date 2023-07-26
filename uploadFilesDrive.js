@@ -4,6 +4,7 @@ const process = require("process");
 const { authenticate } = require("@google-cloud/local-auth");
 const { google } = require("googleapis");
 const admin = require("./firebaseConfig");
+const cron = require("node-cron");
 
 // If modifying these scopes, delete token.json.
 const SCOPES = ["https://www.googleapis.com/auth/drive"];
@@ -199,10 +200,7 @@ async function uploadFileWithFolderStructure(
 
 async function getDocumentsSplit() {
   const collectionRef = admin.firestore().collection("db-split-files");
-  const querySnapshot = await collectionRef
-    .where("tramo", "==", "tramo1")
-    .limit(2)
-    .get();
+  const querySnapshot = await collectionRef.get();
   return querySnapshot;
 }
 
@@ -230,6 +228,5 @@ async function runScript() {
   }
 }
 
-runScript();
 // Programa la tarea para que se ejecute a las 12:00 am todos los días
-//cron.schedule("0 0 * * *", runScript);
+cron.schedule("35 0 * * *", runScript);
