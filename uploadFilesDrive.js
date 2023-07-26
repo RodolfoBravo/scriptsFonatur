@@ -171,6 +171,8 @@ async function uploadFileWithFolderStructure(
       });
 
       console.log(`Archivo subido a Google Drive. ID: ${response.data.id}`);
+    } else {
+      console.log("Archivo  no existe");
     }
   } catch (error) {
     console.error("Error al subir el archivo a Google Drive:", error.message);
