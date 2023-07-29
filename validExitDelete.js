@@ -56,22 +56,25 @@ const isExistFiles = (ubicacion, file) => {
 };
 
 const runScript = async () => {
-  const getData = await getDocumentsSplit();
+  //const getData = await getDocumentsSplit();
 
-  for (const doc of getData.docs) {
-    const data = doc.data();
-    const filePath = doc.data().filePathOut;
-    const fileName = doc.data().fileNameOut;
-    const fileTramo = doc.data().tramo;
-    const fileCategoria = filePath.split("/")[2];
-    const valid = await isExistFiles(filePath, fileName);
-    console.log(valid);
-    if (!valid) {
-      console.log(data);
-      //deleteDocumentsSplit(data);
-      //updateStructureFiles(fileTramo, fileCategoria);
-    }
+  //for (const doc of getData.docs) {
+  //const data = doc.data();
+  //const filePath = doc.data().filePathOut;
+  //const fileName = doc.data().fileNameOut;
+  //const fileTramo = doc.data().tramo;
+  // const fileCategoria = filePath.split("/")[2];
+  const valid = await isExistFiles(
+    "tramo2/contratos/1.1Verificacion_previa_en_archivos_de_la_existencia_de_trabajos_sobre_la_materia",
+    "<Publica>--INE--docNew1"
+  );
+  console.log(valid);
+  if (!valid) {
+    console.log(data);
+    //deleteDocumentsSplit(data);
+    //updateStructureFiles(fileTramo, fileCategoria);
   }
+  //}
 };
 
 runScript();
