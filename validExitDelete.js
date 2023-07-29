@@ -45,6 +45,7 @@ const isExistFiles = (ubicacion, file) => {
   var state = true;
   if (ubicacion) {
     var path = "../fonatur-backend/uploads/etapa2/" + ubicacion + file;
+    console.log(path);
     fs.access(path, fs.constants.F_OK, (err) => {
       if (err) {
         // Si el archivo no existe, se elimina el registro
