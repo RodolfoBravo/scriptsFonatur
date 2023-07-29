@@ -64,8 +64,8 @@ const runScript = async () => {
     const fileName = doc.data().fileNameOut;
     const fileTramo = doc.data().tramo;
     const fileCategoria = filePath.split("/")[2];
-    console.log(fileCategoria);
     const valid = await isExistFiles(filePath, fileName);
+    console.log(valid);
     if (!valid) {
       console.log(data);
       //deleteDocumentsSplit(data);
