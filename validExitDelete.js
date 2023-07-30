@@ -70,7 +70,10 @@ const runScript = async () => {
       //deleteDocumentsSplit(data);
       //updateStructureFiles(fileTramo, fileCategoria);
     } else {
-      console.log("=============== Archivo existe en server==============");
+      console.log(
+        "=============== Archivo existe en server==============",
+        data
+      );
     }
   }
 };
