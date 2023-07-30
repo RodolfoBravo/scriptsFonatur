@@ -55,10 +55,7 @@ const isExistFiles = (ubicacion, file) => {
   var state = true;
   if (ubicacion) {
     var path =
-      "/home/rodolfobravogarcia/fonatur-backend/uploads/etapa1/" +
-      ubicacion +
-      "/" +
-      file;
+      "/home/rodolfobravogarcia/fonatur-backend/" + ubicacion + ".pdf ";
     //console.log(path);
     if (!fs.existsSync(path)) {
       state = false;
@@ -98,24 +95,22 @@ const runScript = async () => {
     const fileName = doc.data().fileInformation.originalname;
     //console.log(data);
     countIteration += 1;
-    //await deleteDocuments(doc);
-    //const valid = await isExistFiles(filePath, fileName);
-    //console.log(valid);
-    /* if (!valid) {
-      console.log("archivo no existe en server, ese elimina registro");
+    const valid = await isExistFiles(filePath);
+    console.log(valid);
+    if (!valid) {
+      //console.log("archivo no existe en server, ese elimina registro");
       countNoExist += 1;
       // await updateDocumentsSplit(doc);
-      datalist.push(filePath + "/" + fileName);
+      //datalist.push(filePath + "/" + fileName);
       //console.log(data);
       // deleteDocumentsSplit(doc);
       //updateStructureFiles(fileTramo, fileCategoria);
     } else {
       //console.log(fileName); //
-
       countExist += 1;
-    }*/
+    }
   }
-  console.log(countIteration);
+  console.log(countIteration, countExist, countNoExist);
 };
 
 runScript();
