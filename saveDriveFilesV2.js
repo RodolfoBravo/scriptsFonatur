@@ -250,7 +250,7 @@ const tramos = [
 
 const runScript = () => {
   foldersIds.forEach((folderID) => {
-    sendNotification(folderID, 0);
+    // sendNotification(folderID, 0);
     authorize()
       .then((authClient) =>
         listAndDownloadFiles(
@@ -259,7 +259,7 @@ const runScript = () => {
           authClient
         )
       )
-      .then(() => sendNotification(folderID, 1))
+      //.then(() => sendNotification(folderID, 1))
       .catch(console.error);
   });
 };
