@@ -95,14 +95,11 @@ const runScript = async () => {
       // await updateDocumentsSplit(doc);
       datalist.push(filePath + "/" + fileName);
       //console.log(data);
-      //deleteDocumentsSplit(data);
-      //updateStructureFiles(fileTramo, fileCategoria);
+      deleteDocumentsSplit(doc);
+      updateStructureFiles(fileTramo, fileCategoria);
     } else {
       //console.log(fileName); //
-      console.log(
-        "=============== Archivo existe en server=============="
-        //data
-      );
+
       countExist += 1;
     }
   }
