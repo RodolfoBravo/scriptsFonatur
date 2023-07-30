@@ -97,7 +97,7 @@ const runScript = async () => {
     const filePath = doc.data().fileInformation.path;
     const fileName = doc.data().fileInformation.originalname;
     //console.log(data);
-    countIteration = +1;
+    countIteration += 1;
     //await deleteDocuments(doc);
     //const valid = await isExistFiles(filePath, fileName);
     //console.log(valid);
