@@ -59,7 +59,9 @@ const isExistFiles = (ubicacion, file) => {
 
 const runScript = async () => {
   const getData = await getDocumentsSplit();
-
+  var countExist = 0;
+  var countNoExist = 0;
+  datalist = [];
   for (const doc of getData.docs) {
     const data = doc.data();
     const filePath = doc.data().filePathOut;
@@ -70,6 +72,8 @@ const runScript = async () => {
     console.log(valid);
     if (!valid) {
       console.log("archivo no existe en server, ese elimina registro");
+      countNoExist += 1;
+      datalist.append(filePath + "/" + fileName);
       //console.log(data);
       //deleteDocumentsSplit(data);
       //updateStructureFiles(fileTramo, fileCategoria);
@@ -78,6 +82,7 @@ const runScript = async () => {
         "=============== Archivo existe en server=============="
         //data
       );
+      countExist += 1;
     }
   }
 };
