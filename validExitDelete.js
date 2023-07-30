@@ -11,7 +11,7 @@ const getDocuments = async () => {
   const collectionRef = admin.firestore().collection("db-register-files");
   const q = collectionRef
     //.where("subCategoria", "==", categoria)
-    .where("tramo", "==", "tramo2");
+    .where("tramo", "==", "tramo3");
   const querySnapshot = await q.get();
   return querySnapshot;
 };
@@ -94,8 +94,8 @@ const runScript = async () => {
     const data = doc.data();
     const filePath = doc.data().fileInformation.path;
     const fileName = doc.data().fileInformation.originalname;
-    //console.log(data);
-    deleteDocuments(doc);
+    console.log(data);
+    //deleteDocuments(doc);
     //const valid = await isExistFiles(filePath, fileName);
     //console.log(valid);
     /* if (!valid) {
