@@ -44,7 +44,7 @@ const updateStructureFiles = async (categoria, tramo) => {
 const isExistFiles = (ubicacion, file) => {
   var state = true;
   if (ubicacion) {
-    var path = "../fonatur-backend/uploads/etapa2/" + ubicacion + file;
+    var path = "../fonatur-backend/uploads/etapa2/" + ubicacion + "/" + file;
     console.log(path);
     if (!fs.existsSync(path)) {
       state = false;
@@ -62,7 +62,7 @@ const runScript = async () => {
     const fileName = doc.data().fileNameOut;
     const fileTramo = doc.data().tramo;
     const fileCategoria = filePath.split("/")[2];
-    const valid = await isExistFiles(fileCategoria, fileTramo);
+    const valid = await isExistFiles(fileCategoria, fileName);
     console.log(valid);
     if (!valid) {
       console.log("archivo no existe en server, ese elimina registro", data);
