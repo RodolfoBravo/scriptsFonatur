@@ -23,17 +23,20 @@ function renombrarArchivos(directorio) {
           renombrarArchivos(rutaArchivo);
         } else if (archivo.includes(".pdf.pdf")) {
           console.log(archivo);
-          /*
-            const nuevoNombre = archivo.replace('.pdf.pdf', '.pdf');
-            const rutaNueva = path.join(directorio, nuevoNombre);
-  
-            fs.rename(rutaArchivo, rutaNueva, (renameError) => {
-              if (renameError) {
-                console.error(`Error al renombrar el archivo ${archivo}:`, renameError);
-              } else {
-                console.log(`Archivo ${archivo} renombrado como ${nuevoNombre}`);
-              }
-            });*/
+
+          const nuevoNombre = archivo.replace(".pdf.pdf", ".pdf");
+          const rutaNueva = path.join(directorio, nuevoNombre);
+
+          fs.rename(rutaArchivo, rutaNueva, (renameError) => {
+            if (renameError) {
+              console.error(
+                `Error al renombrar el archivo ${archivo}:`,
+                renameError
+              );
+            } else {
+              console.log(`Archivo ${archivo} renombrado como ${nuevoNombre}`);
+            }
+          });
         }
       });
     });
