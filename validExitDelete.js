@@ -16,7 +16,7 @@ const getDocuments = async () => {
   return querySnapshot;
 };
 
-const deleteDocumentsSplit = async (doc) => {
+const deleteDocuments = async (doc) => {
   try {
     await doc.ref.delete();
     console.log(`Documento con ID ${doc.id} eliminado.`);
@@ -95,6 +95,7 @@ const runScript = async () => {
     const filePath = doc.data().fileInformation.path;
     const fileName = doc.data().fileInformation.originalname;
     console.log(data);
+    deleteDocumentsSplit(doc);
     //const valid = await isExistFiles(filePath, fileName);
     //console.log(valid);
     /* if (!valid) {
