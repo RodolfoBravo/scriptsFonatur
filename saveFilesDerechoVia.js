@@ -2,7 +2,7 @@ const fs = require("fs");
 const path = require("path");
 const csvParser = require("csv-parser");
 const admin = require("./firebaseConfig");
-const filePath = "./pathlist.csv"; //path file
+const filePath = "./newListPaths.csv"; //path file
 
 async function listReadPaths() {
   console.log("start script");
@@ -18,15 +18,20 @@ async function listReadPaths() {
         .on("end", async () => {
           console.log("CSV data read successfully.");
           var i = 0;
+          var j = 0;
           for (const data of csvData) {
             // console.log(data);
             i++;
             const { drivePath, separationPath } = data;
+            console.log(drivePath);
             const newDrivePath =
               "/home/rodolfobravogarcia/fonatur-backend/" + drivePath + ".pdf";
             if (fs.existsSync(newDrivePath)) {
               // Verificar si el archivo existe en el filePath
-              if (newDrivePath != undefined && separationPath != undefined) {
+              console.log("archivo existe en server");
+              j++;
+            }
+            /*if (newDrivePath != undefined && separationPath != undefined) {
                 const drivePathseparation = drivePath.split("/");
                 const nameFileIn =
                   drivePathseparation[drivePathseparation.length - 1];
@@ -84,8 +89,9 @@ async function listReadPaths() {
                   }
                 }
               }
-            }
+            }*/
           }
+          console.log(i);
         })
 
         .on("error", (error) => {
