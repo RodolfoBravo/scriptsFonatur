@@ -55,7 +55,7 @@ const isExistFiles = (ubicacion) => {
   var state = true;
   if (ubicacion) {
     var path = "/home/rodolfobravogarcia/fonatur-backend/" + ubicacion + ".pdf";
-    console.log(path);
+    //console.log(path);
     if (!fs.existsSync(path)) {
       state = false;
     }
@@ -100,6 +100,7 @@ const runScript = async () => {
       console.log(valid);
       console.log("archivo no existe en server, ese elimina registro");
       countNoExist += 1;
+      await deleteDocuments(doc);
       // await updateDocumentsSplit(doc);
       //datalist.push(filePath + "/" + fileName);
       //console.log(data);
