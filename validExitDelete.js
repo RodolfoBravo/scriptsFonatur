@@ -55,7 +55,7 @@ const isExistFiles = (ubicacion) => {
   var state = true;
   if (ubicacion) {
     var path =
-      "/home/rodolfobravogarcia/fonatur-backend/uploads/Drive/Documents/FilesDownloadDrive/1IO9uDb1BLjfIqJvIcvSw1gBKrTJVCbFt.pdf"; //"/home/rodolfobravogarcia/fonatur-backend/" + ubicacion + ".pdf ";
+      "/home/rodolfobravogarcia/fonatur-backend/" + ubicacion + ".pdf ";
     console.log(path);
     if (!fs.existsSync(path)) {
       state = false;
