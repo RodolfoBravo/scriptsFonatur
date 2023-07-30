@@ -46,12 +46,9 @@ const isExistFiles = (ubicacion, file) => {
   if (ubicacion) {
     var path = "../fonatur-backend/uploads/etapa2/" + ubicacion + file;
     console.log(path);
-    fs.access(path, fs.constants.F_OK, (err) => {
-      if (err) {
-        // Si el archivo no existe, se elimina el registro
-        state = false;
-      }
-    });
+    if (!fs.existsSync(path)) {
+      state = false;
+    }
   }
   return state;
 };
@@ -71,11 +68,13 @@ const runScript = async () => {
   );
   console.log(valid);
   if (!valid) {
-    console.log(data);
+    console.log("archivo no existe en server, ese elimina registro");
+    //console.log(data);
     //deleteDocumentsSplit(data);
     //updateStructureFiles(fileTramo, fileCategoria);
+  } else {
+    console.log("=============== Archivo existe en server==============");
   }
-  //}
 };
 
 runScript();
