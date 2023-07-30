@@ -49,7 +49,7 @@ const isExistFiles = (ubicacion, file) => {
       ubicacion +
       "/" +
       file;
-    console.log(path);
+    //console.log(path);
     if (!fs.existsSync(path)) {
       state = false;
     }
@@ -69,7 +69,7 @@ const runScript = async () => {
     const fileTramo = doc.data().tramo;
     const fileCategoria = filePath.split("/")[2];
     const valid = await isExistFiles(filePath, fileName);
-    console.log(valid);
+    //console.log(valid);
     if (!valid) {
       console.log("archivo no existe en server, ese elimina registro");
       countNoExist += 1;
