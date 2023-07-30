@@ -91,7 +91,7 @@ async function listReadPaths() {
               }
             }*/
           }
-          console.log(i);
+          console.log(i, j);
         })
 
         .on("error", (error) => {
