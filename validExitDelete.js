@@ -7,6 +7,15 @@ const getDocumentsSplit = async () => {
   return querySnapshot;
 };
 
+const getDocuments = async () => {
+  const collectionRef = admin.firestore().collection("db-register-files");
+  const q = collectionRef
+    //.where("subCategoria", "==", categoria)
+    .where("tramo", "==", "tramo1");
+  const querySnapshot = await q.get();
+  return querySnapshot;
+};
+
 const deleteDocumentsSplit = async (doc) => {
   try {
     await doc.ref.delete();
@@ -45,7 +54,7 @@ const isExistFiles = (ubicacion, file) => {
   var state = true;
   if (ubicacion) {
     var path =
-      "/home/rodolfobravogarcia/fonatur-backend/uploads/etapa2/" +
+      "/home/rodolfobravogarcia/fonatur-backend/uploads/etapa1/" +
       ubicacion +
       "/" +
       file;
@@ -77,19 +86,18 @@ const updateDocumentsSplit = async (doc) => {
 };
 
 const runScript = async () => {
-  const getData = await getDocumentsSplit();
+  const getData = await getDocuments();
   var countExist = 0;
   var countNoExist = 0;
   datalist = [];
   for (const doc of getData.docs) {
     const data = doc.data();
-    const filePath = doc.data().filePathOut;
-    const fileName = doc.data().fileNameOut;
-    const fileTramo = doc.data().tramo;
-    const fileCategoria = filePath.split("/")[2];
-    const valid = await isExistFiles(filePath, fileName);
+    const filePath = doc.data().fileInformation.path;
+    const fileName = doc.data().fileInformation.originalname;
+    console.log(data);
+    //const valid = await isExistFiles(filePath, fileName);
     //console.log(valid);
-    if (!valid) {
+    /* if (!valid) {
       console.log("archivo no existe en server, ese elimina registro");
       countNoExist += 1;
       // await updateDocumentsSplit(doc);
@@ -101,9 +109,9 @@ const runScript = async () => {
       //console.log(fileName); //
 
       countExist += 1;
-    }
+    }*/
   }
-  console.log(countExist, countNoExist, datalist);
+  //console.log(countExist, countNoExist, datalist);
 };
 
 runScript();
