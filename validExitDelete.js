@@ -92,7 +92,7 @@ const runScript = async () => {
     if (!valid) {
       console.log("archivo no existe en server, ese elimina registro");
       countNoExist += 1;
-      await updateDocumentsSplit(doc);
+      // await updateDocumentsSplit(doc);
 
       //console.log(data);
       //deleteDocumentsSplit(data);
