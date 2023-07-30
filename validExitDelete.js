@@ -56,7 +56,7 @@ const isExistFiles = (ubicacion, file) => {
   if (ubicacion) {
     var path =
       "/home/rodolfobravogarcia/fonatur-backend/" + ubicacion + ".pdf ";
-    //console.log(path);
+    console.log(path);
     if (!fs.existsSync(path)) {
       state = false;
     }
