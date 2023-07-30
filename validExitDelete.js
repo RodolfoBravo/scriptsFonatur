@@ -8,6 +8,7 @@ const getDocumentsSplit = async () => {
 };
 
 const getDocuments = async () => {
+  //
   const collectionRef = admin.firestore().collection("db-register-files");
   const q = collectionRef
     //.where("subCategoria", "==", categoria)
@@ -95,7 +96,7 @@ const runScript = async () => {
     const filePath = doc.data().fileInformation.path;
     const fileName = doc.data().fileInformation.originalname;
     console.log(data);
-    //deleteDocuments(doc);
+    await deleteDocuments(doc);
     //const valid = await isExistFiles(filePath, fileName);
     //console.log(valid);
     /* if (!valid) {
