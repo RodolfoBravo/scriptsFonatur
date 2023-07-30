@@ -54,26 +54,24 @@ const isExistFiles = (ubicacion, file) => {
 };
 
 const runScript = async () => {
-  //const getData = await getDocumentsSplit();
+  const getData = await getDocumentsSplit();
 
-  //for (const doc of getData.docs) {
-  //const data = doc.data();
-  //const filePath = doc.data().filePathOut;
-  //const fileName = doc.data().fileNameOut;
-  //const fileTramo = doc.data().tramo;
-  // const fileCategoria = filePath.split("/")[2];
-  const valid = await isExistFiles(
-    "tramo2/contratos/1.1Verificacion_previa_en_archivos_de_la_existencia_de_trabajos_sobre_la_materia",
-    "<Publica>--INE--docNew1"
-  );
-  console.log(valid);
-  if (!valid) {
-    console.log("archivo no existe en server, ese elimina registro");
-    //console.log(data);
-    //deleteDocumentsSplit(data);
-    //updateStructureFiles(fileTramo, fileCategoria);
-  } else {
-    console.log("=============== Archivo existe en server==============");
+  for (const doc of getData.docs) {
+    const data = doc.data();
+    const filePath = doc.data().filePathOut;
+    const fileName = doc.data().fileNameOut;
+    const fileTramo = doc.data().tramo;
+    const fileCategoria = filePath.split("/")[2];
+    const valid = await isExistFiles(fileCategoria, fileTramo);
+    console.log(valid);
+    if (!valid) {
+      console.log("archivo no existe en server, ese elimina registro", data);
+      //console.log(data);
+      //deleteDocumentsSplit(data);
+      //updateStructureFiles(fileTramo, fileCategoria);
+    } else {
+      console.log("=============== Archivo existe en server==============");
+    }
   }
 };
 
