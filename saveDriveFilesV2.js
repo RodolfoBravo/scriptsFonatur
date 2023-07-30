@@ -265,4 +265,5 @@ const runScript = () => {
 };
 
 // Programa la tarea para que se ejecute a las 12:00 am todos los días
-cron.schedule("34 23 * * *", runScript);
+//ron.schedule("34 23 * * *", runScript);
+runScript();
