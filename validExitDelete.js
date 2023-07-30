@@ -57,6 +57,25 @@ const isExistFiles = (ubicacion, file) => {
   return state;
 };
 
+const updateDocumentsSplit = async (doc) => {
+  try {
+    const archivo = doc.data().fileNameOut;
+    if (!archivo.endsWith(".pdf")) {
+      const nuevoNombre = archivo + ".pdf";
+      await doc.ref.update({ fileNameOut: nuevoNombre });
+      console.log(
+        `Documento con ID  actualizado con nuevo nombre: ${nuevoNombre}`
+      );
+    } else {
+      console.log(
+        `Documento con ID  ya tiene la extensión ".pdf". No se necesita actualizar.`
+      );
+    }
+  } catch (error) {
+    console.error(`Error al actualizar el documento con ID ${doc}: ${error}`);
+  }
+};
+
 const runScript = async () => {
   const getData = await getDocumentsSplit();
   var countExist = 0;
@@ -73,12 +92,13 @@ const runScript = async () => {
     if (!valid) {
       console.log("archivo no existe en server, ese elimina registro");
       countNoExist += 1;
+      await updateDocumentsSplit(doc);
 
       //console.log(data);
       //deleteDocumentsSplit(data);
       //updateStructureFiles(fileTramo, fileCategoria);
     } else {
-      console.log(fileName); //
+      //console.log(fileName); //
       console.log(
         "=============== Archivo existe en server=============="
         //data
