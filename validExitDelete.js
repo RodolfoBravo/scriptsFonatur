@@ -88,6 +88,7 @@ const updateDocumentsSplit = async (doc) => {
 
 const runScript = async () => {
   const getData = await getDocuments();
+  var countIteration = 0;
   var countExist = 0;
   var countNoExist = 0;
   datalist = [];
@@ -96,6 +97,7 @@ const runScript = async () => {
     const filePath = doc.data().fileInformation.path;
     const fileName = doc.data().fileInformation.originalname;
     console.log(data);
+    count = +1;
     //await deleteDocuments(doc);
     //const valid = await isExistFiles(filePath, fileName);
     //console.log(valid);
@@ -113,7 +115,7 @@ const runScript = async () => {
       countExist += 1;
     }*/
   }
-  //console.log(countExist, countNoExist, datalist);
+  console.log(countIteration);
 };
 
 runScript();
