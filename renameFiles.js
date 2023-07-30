@@ -8,7 +8,7 @@ fs.readdir(directorio, (err, archivos) => {
     console.error("Error al leer el directorio:", err);
     return;
   }
-
+  console.log(archivos);
   archivos.forEach((archivo) => {
     if (archivo.includes(".pdf.pdf")) {
       console.log(archivo);
