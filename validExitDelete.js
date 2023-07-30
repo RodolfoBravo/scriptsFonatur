@@ -44,7 +44,11 @@ const updateStructureFiles = async (categoria, tramo) => {
 const isExistFiles = (ubicacion, file) => {
   var state = true;
   if (ubicacion) {
-    var path = "../fonatur-backend/uploads/etapa2/" + ubicacion + "/" + file;
+    var path =
+      "/home/rodolfobravogarcia/fonatur-backend/uploads/etapa2/" +
+      ubicacion +
+      "/" +
+      file;
     console.log(path);
     if (!fs.existsSync(path)) {
       state = false;
