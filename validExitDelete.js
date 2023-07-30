@@ -85,6 +85,7 @@ const runScript = async () => {
       countExist += 1;
     }
   }
+  console.log(countExist, countNoExist, datalist);
 };
 
 runScript();
