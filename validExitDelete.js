@@ -96,9 +96,10 @@ const runScript = async () => {
     //console.log(data);
     countIteration += 1;
     const valid = await isExistFiles(filePath);
-    console.log(valid);
+
     if (!valid) {
-      //console.log("archivo no existe en server, ese elimina registro");
+      console.log(valid);
+      console.log("archivo no existe en server, ese elimina registro");
       countNoExist += 1;
       // await updateDocumentsSplit(doc);
       //datalist.push(filePath + "/" + fileName);
