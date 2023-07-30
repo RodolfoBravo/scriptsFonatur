@@ -11,7 +11,7 @@ const getDocuments = async () => {
   const collectionRef = admin.firestore().collection("db-register-files");
   const q = collectionRef
     //.where("subCategoria", "==", categoria)
-    .where("tramo", "==", "tramo1");
+    .where("tramo", "==", "tramo2");
   const querySnapshot = await q.get();
   return querySnapshot;
 };
