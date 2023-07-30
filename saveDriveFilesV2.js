@@ -240,12 +240,12 @@ const foldersIds = [
 
 const tramos = [
   { "1HPVS-T1JQfTGtGxfbTHUcCj2InOV2jFM": "tramo1" },
-  { "1fi8KzcmfcE2rLLLlSzSZ2ScOluhZjDlg": "tramo2" },
-  { "1OLRC5f80ezvE5VBXMOvAVcoBlfX2tDue": "tramo3" },
-  { "1kqgORc0B8TQ-WSLCilMrVz6gIfDH4FgY": "tramo4" },
-  { "11wbdMSdlIslhe9aUxufO26MTJFscKZBR": "tramo5" },
-  { "1Mq3cJWt3aT3ib9TPC0SKSKUhyB7WEORp": "tramo6" },
-  { "1DNrG6p9MnLbQMVYDamWuhjUhgENsXnF5": "tramo7" },
+  // { "1fi8KzcmfcE2rLLLlSzSZ2ScOluhZjDlg": "tramo2" },
+  // { "1OLRC5f80ezvE5VBXMOvAVcoBlfX2tDue": "tramo3" },
+  // { "1kqgORc0B8TQ-WSLCilMrVz6gIfDH4FgY": "tramo4" },
+  // { "11wbdMSdlIslhe9aUxufO26MTJFscKZBR": "tramo5" },
+  // { "1Mq3cJWt3aT3ib9TPC0SKSKUhyB7WEORp": "tramo6" },
+  // { "1DNrG6p9MnLbQMVYDamWuhjUhgENsXnF5": "tramo7" },
 ];
 
 const runScript = () => {
@@ -255,7 +255,7 @@ const runScript = () => {
       .then((authClient) =>
         listAndDownloadFiles(
           folderID, // Replace with the actual folder ID
-          "./FilesDownloadDrive", //"../fonatur-backend/uploads/Drive/Documents/FilesDownloadDrive", // Replace with the desired destination folder path
+          "../fonatur-backend/uploads/Drive/Documents/FilesDownloadDrive", // Replace with the desired destination folder path
           authClient
         )
       )
