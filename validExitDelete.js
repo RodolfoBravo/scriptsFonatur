@@ -95,8 +95,8 @@ const runScript = async () => {
       // await updateDocumentsSplit(doc);
       datalist.push(filePath + "/" + fileName);
       //console.log(data);
-      deleteDocumentsSplit(doc);
-      updateStructureFiles(fileTramo, fileCategoria);
+      // deleteDocumentsSplit(doc);
+      //updateStructureFiles(fileTramo, fileCategoria);
     } else {
       //console.log(fileName); //
 
