@@ -73,11 +73,12 @@ const runScript = async () => {
     if (!valid) {
       console.log("archivo no existe en server, ese elimina registro");
       countNoExist += 1;
-      console.log(fileName);
+
       //console.log(data);
       //deleteDocumentsSplit(data);
       //updateStructureFiles(fileTramo, fileCategoria);
     } else {
+      console.log(fileName); //
       console.log(
         "=============== Archivo existe en server=============="
         //data
