@@ -62,7 +62,7 @@ const runScript = async () => {
     const fileName = doc.data().fileNameOut;
     const fileTramo = doc.data().tramo;
     const fileCategoria = filePath.split("/")[2];
-    const valid = await isExistFiles(fileCategoria, fileName);
+    const valid = await isExistFiles(filePath, fileName);
     console.log(valid);
     if (!valid) {
       console.log("archivo no existe en server, ese elimina registro", data);
