@@ -71,16 +71,20 @@ async function listReadPaths() {
                     fileName
                   );
 
-                  const destinationDir = path.dirname(newFilePath);
+                  const newFilePath2 = path.join(dataSingleDoc[0].path_out);
                   const pathDesting =
                     "/home/rodolfobravogarcia/fonatur-backend/uploads/etapa2/" +
-                    newFilePath;
+                    newFilePath2;
                   try {
                     if (!fs.existsSync(pathDesting)) {
                       fs.mkdirSync(pathDesting, { recursive: true });
                     }
                     //Copiar el archivo utilizando el método `copyFileSync` de fs
-                    fs.copyFileSync(newDrivePath, pathDesting);
+                    fs.copyFileSync(
+                      newDrivePath,
+                      "/home/rodolfobravogarcia/fonatur-backend/uploads/etapa2/" +
+                        newFilePath
+                    );
                     console.log("Archivo copiado");
                     await saveData(dataSingleDoc, tramoNew);
                     console.log(i);
