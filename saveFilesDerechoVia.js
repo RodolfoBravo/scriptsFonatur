@@ -16,7 +16,7 @@ async function listReadPaths() {
           csvData.push(data);
         })
         .on("end", async () => {
-          console.log("CSV data read successfully.");
+          //console.log("CSV data read successfully.");
           var i = 0;
           var j = 0;
           for (const data of csvData) {
@@ -61,10 +61,10 @@ async function listReadPaths() {
                 );
 
                 if (resp) {
-                  console.log(resp, dataSingleDoc);
-                }
-                // Obtener el nombre del archivo del filePath
-                /* const fileName = path.basename(dataSingleDoc[0].doc_name_out);
+                  //console.log(resp, dataSingleDoc);
+
+                  // Obtener el nombre del archivo del filePath
+                  const fileName = path.basename(dataSingleDoc[0].doc_name_out);
                   // Combinar el destinationPath con el nombre del archivo para obtener la nueva ruta
                   const newFilePath = path.join(
                     dataSingleDoc[0].path_out,
@@ -72,8 +72,8 @@ async function listReadPaths() {
                   );
 
                   const destinationDir = path.dirname(newFilePath);
-                  //  console.log(destinationDir);
-                  try {
+                  console.log(destinationDir);
+                  /*try {
                     if (!fs.existsSync(destinationDir)) {
                       fs.mkdirSync(destinationDir, { recursive: true });
                     }
@@ -89,8 +89,8 @@ async function listReadPaths() {
                   } catch (e) {
                     console.log("Error: " + e.message);
                     continue;
-                  }
-                }*/
+                  }*/
+                }
               }
             }
           }
