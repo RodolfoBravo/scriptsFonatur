@@ -72,25 +72,17 @@ async function listReadPaths() {
                   );
 
                   const destinationDir = path.dirname(newFilePath);
-                  console.log(
-                    newDrivePath,
+                  const pathDesting =
                     "/home/rodolfobravogarcia/fonatur-backend/uploads/etapa2/" +
-                      newFilePath,
-                    destinationDir
-                  );
+                    newFilePath;
                   try {
-                    console.log("destinationDir");
-                    /* if (!fs.existsSync(destinationDir)) {
-                      fs.mkdirSync(destinationDir, { recursive: true });
+                    if (!fs.existsSync(pathDesting)) {
+                      fs.mkdirSync(pathDesting, { recursive: true });
                     }
-                    / Copiar el archivo utilizando el método `copyFileSync` de fs
-                    fs.copyFileSync(
-                      newDrivePath,
-                      "/home/rodolfobravogarcia/fonatur-backend/uploads/etapa2/" +
-                        newFilePath
-                    );
+                    //Copiar el archivo utilizando el método `copyFileSync` de fs
+                    fs.copyFileSync(newDrivePath, pathDesting);
                     console.log("Archivo copiado");
-                    await saveData(dataSingleDoc, tramoNew);*/
+                    await saveData(dataSingleDoc, tramoNew);
                     console.log(i);
                   } catch (e) {
                     console.log("Error: " + e.message);
