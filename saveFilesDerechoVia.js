@@ -60,7 +60,7 @@ async function listReadPaths() {
                   dataSingleDoc[0].doc_name_in
                 );
                 console.log(resp, dataSingleDoc);
-                /*if (!resp) {
+                /*if (resp) {
                   // Obtener el nombre del archivo del filePath
                   const fileName = path.basename(dataSingleDoc[0].doc_name_out);
                   // Combinar el destinationPath con el nombre del archivo para obtener la nueva ruta
@@ -114,7 +114,7 @@ async function checkIfDocumentExists(documentId) {
   querySnapshot.forEach((doc) => {
     // console.log(doc.data());
   });
-  return !querySnapshot.empty;
+  return querySnapshot.empty;
 }
 
 const saveData = async (dataDoc, tramoNew) => {
