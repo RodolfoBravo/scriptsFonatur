@@ -77,7 +77,7 @@ async function listReadPaths() {
                     "/home/rodolfobravogarcia/fonatur-backend/uploads/etapa2/" +
                       newFilePath
                   );
-                  /* try {
+                  try {
                     if (!fs.existsSync(destinationDir)) {
                       fs.mkdirSync(destinationDir, { recursive: true });
                     }
@@ -93,7 +93,7 @@ async function listReadPaths() {
                   } catch (e) {
                     console.log("Error: " + e.message);
                     continue;
-                  }*/
+                  }
                 }
               }
             }
