@@ -59,10 +59,12 @@ async function listReadPaths() {
                 const resp = await checkIfDocumentExists(
                   dataSingleDoc[0].doc_name_in
                 );
-                console.log(resp, dataSingleDoc);
-                /*if (resp) {
-                  // Obtener el nombre del archivo del filePath
-                  const fileName = path.basename(dataSingleDoc[0].doc_name_out);
+
+                if (resp) {
+                  console.log(resp, dataSingleDoc);
+                }
+                // Obtener el nombre del archivo del filePath
+                /* const fileName = path.basename(dataSingleDoc[0].doc_name_out);
                   // Combinar el destinationPath con el nombre del archivo para obtener la nueva ruta
                   const newFilePath = path.join(
                     dataSingleDoc[0].path_out,
