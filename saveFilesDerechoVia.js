@@ -72,8 +72,12 @@ async function listReadPaths() {
                   );
 
                   const destinationDir = path.dirname(newFilePath);
-                  console.log(destinationDir);
-                  /*try {
+                  console.log(
+                    newDrivePath,
+                    "/home/rodolfobravogarcia/fonatur-backend/uploads/etapa2/" +
+                      newFilePath
+                  );
+                  /* try {
                     if (!fs.existsSync(destinationDir)) {
                       fs.mkdirSync(destinationDir, { recursive: true });
                     }
