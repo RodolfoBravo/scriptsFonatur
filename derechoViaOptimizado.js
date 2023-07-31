@@ -3,6 +3,7 @@ const path = require("path");
 const csvParser = require("csv-parser");
 const admin = require("./firebaseConfig");
 const filePath = "./newListPaths.csv"; // Ruta del archivo CSV
+const util = require("util");
 
 async function listReadPaths() {
   console.log("Comenzando el script");
