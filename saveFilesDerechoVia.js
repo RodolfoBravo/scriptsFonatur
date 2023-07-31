@@ -23,7 +23,7 @@ async function listReadPaths() {
             // console.log(data);
             i++;
             const { drivePath, separationPath } = data;
-            console.log(drivePath);
+            //console.log(drivePath);
             const newDrivePath =
               "/home/rodolfobravogarcia/fonatur-backend/" + drivePath + ".pdf";
             if (fs.existsSync(newDrivePath)) {
