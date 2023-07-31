@@ -30,8 +30,8 @@ async function listReadPaths() {
               // Verificar si el archivo existe en el filePath
               console.log("archivo existe en server");
               j++;
-            }
-            /*if (newDrivePath != undefined && separationPath != undefined) {
+
+              if (newDrivePath != undefined && separationPath != undefined) {
                 const drivePathseparation = drivePath.split("/");
                 const nameFileIn =
                   drivePathseparation[drivePathseparation.length - 1];
@@ -59,7 +59,8 @@ async function listReadPaths() {
                 const resp = await checkIfDocumentExists(
                   dataSingleDoc[0].doc_name_in
                 );
-                if (!resp) {
+                console.log(resp, dataSingleDoc);
+                /*if (!resp) {
                   // Obtener el nombre del archivo del filePath
                   const fileName = path.basename(dataSingleDoc[0].doc_name_out);
                   // Combinar el destinationPath con el nombre del archivo para obtener la nueva ruta
@@ -87,9 +88,9 @@ async function listReadPaths() {
                     console.log("Error: " + e.message);
                     continue;
                   }
-                }
+                }*/
               }
-            }*/
+            }
           }
           console.log(i, j);
         })
