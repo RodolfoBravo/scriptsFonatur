@@ -208,7 +208,7 @@ async function uploadFilesInFolder(authClient, folderPath, parentFolderId) {
     console.log(filesInFolder);
 
     for (const fileName of filesInFolder) {
-      const filePath = path.join(folderPath, fileName); // Corrected the filePath variable
+      const filePath = folderPath + fileName; // Corrected the filePath variable
       console.log(filePath);
 
       let currentFolderId = parentFolderId;
@@ -278,7 +278,7 @@ async function uploadFilesInFolder(authClient, folderPath, parentFolderId) {
           if (existingFiles.data.files.length > 0) {
             // The file already exists on Google Drive, no duplication
             console.log(
-              `The file '${fileName}' already exists on Google Drive. It will not be duplicated.`
+              `El archivo '${fileName}' ya existe en Google Drive. No se duplicará.`
             );
           } else {
             // The file doesn't exist on Google Drive, proceed to upload it
@@ -299,22 +299,21 @@ async function uploadFilesInFolder(authClient, folderPath, parentFolderId) {
             });
 
             console.log(
-              `File uploaded to Google Drive. ID: ${response.data.id}`
+              `Archivo subido a Google Drive. ID: ${response.data.id}`
             );
           }
         }
       } catch (error) {
         console.error(
-          "Error uploading the file to Google Drive:",
+          "Error al subir el archivo a Google Drive:",
           error.message
         );
       }
     }
   } catch (error) {
-    console.error("Error reading the local folder:", error.message);
+    console.error("Error al leer la carpeta local:", error.message);
   }
 }
-
 async function getDocumentsSplit() {
   const collectionRef = admin.firestore().collection("db-split-files");
   const querySnapshot = await collectionRef.get();
