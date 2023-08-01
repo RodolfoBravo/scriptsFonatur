@@ -229,4 +229,5 @@ async function runScript() {
 }
 
 // Programa la tarea para que se ejecute a las 12:00 am todos los días
-cron.schedule("39 6 * * *", runScript);
+//cron.schedule("39 6 * * *", runScript);
+runScript()
