@@ -254,7 +254,14 @@ async function uploadFilesInFolder(authClient, folderPath, parentFolderId) {
       };
 
       try {
-        if (fs.lstatSync(filePath).isFile()) {
+        if (
+          fs
+            .lstatSync(
+              "/home/rodolfobravogarcia/fonatur-backend/uploads/etapa2/" +
+                filePath
+            )
+            .isFile()
+        ) {
           // Verify if the file already exists on Google Drive
           const existingFiles = await drive.files.list({
             q: `name='${fileName}' and '${currentFolderId}' in parents and trashed=false`,
