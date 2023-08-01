@@ -274,7 +274,10 @@ async function uploadFilesInFolder(authClient, folderPath, parentFolderId) {
             // El archivo no existe en Google Drive, proceder a subirlo
             const media = {
               mimeType: "application/pdf",
-              body: fs.createReadStream(filePath),
+              body: fs.createReadStream(
+                "/home/rodolfobravogarcia/fonatur-backend/uploads/etapa2/" +
+                  filePath
+              ),
             };
 
             const response = await drive.files.create({
@@ -313,12 +316,12 @@ const parentFolderId = "1AGaKlnpJfTD54-_PC3tff062g1oW4Qqc";
 async function runScript() {
   try {
     const authClient = await authorize();
-    const getData = await getDocumentsSplit();
+    //const getData = await getDocumentsSplit();
 
     //for (const doc of getData.docs) {
     //const data = doc.data();
     const folderPath =
-      "/home/rodolfobravogarcia/fonatur-backend/uploads/etapa2/tramo1/contratos/1.2.2Entrega_del_derecho_de_via_(Actas)/T1-CAMP-CAN-SOC-PARC-229/PROPIEDADSOCIAL"; // doc.data().folderPathOut; // Use folderPathOut instead of filePathOut
+      "tramo1/contratos/1.2.2Entrega_del_derecho_de_via_(Actas)/T1-CAMP-CAN-SOC-PARC-229/PROPIEDADSOCIAL"; // doc.data().folderPathOut; // Use folderPathOut instead of filePathOut
     //console.log(data);
     await uploadFilesInFolder(authClient, folderPath, parentFolderId); // Use uploadFilesInFolder instead of uploadFileWithFolderStructure
     // }
