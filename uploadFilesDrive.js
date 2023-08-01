@@ -202,18 +202,16 @@ async function uploadFilesInFolder(authClient, folderPath, parentFolderId) {
   const drive = google.drive({ version: "v3", auth: authClient });
 
   try {
-    const filesInFolder = await fs.promises.readdir(
-      "/home/rodolfobravogarcia/fonatur-backend/uploads/etapa2/" + folderPath
-    );
+    const filesInFolder = await fs.promises.readdir(folderPath);
     console.log(filesInFolder);
 
     for (const fileName of filesInFolder) {
-      const filePath = path.join(folderPath, fileName);
+      const filePath = path.join(folderPath, fileName); // Corrected the filePath variable
       console.log(filePath);
-      const currentFileComponents = filePath.split("/");
+
       let currentFolderId = parentFolderId;
 
-      for (const folderName of currentFileComponents) {
+      for (const folderName of filePath.split("/")) {
         try {
           const existingFolders = await drive.files.list({
             q: `name='${folderName}' and mimeType='application/vnd.google-apps.folder' and trashed=false and '${currentFolderId}' in parents`,
@@ -228,11 +226,11 @@ async function uploadFilesInFolder(authClient, folderPath, parentFolderId) {
           });
 
           if (existingFolders.data.files.length > 0) {
-            // La carpeta ya existe en Google Drive
+            // The folder already exists on Google Drive
             currentFolderId = existingFolders.data.files[0].id;
-            console.log("folder Id existe", currentFolderId);
+            console.log("folder Id exists", currentFolderId);
           } else {
-            // La carpeta no existe, la creamos y actualizamos currentFolderId
+            // The folder doesn't exist, so we create it and update currentFolderId
             currentFolderId = await createFolder(
               drive,
               currentFolderId,
@@ -254,15 +252,8 @@ async function uploadFilesInFolder(authClient, folderPath, parentFolderId) {
       };
 
       try {
-        if (
-          fs
-            .lstatSync(
-              "/home/rodolfobravogarcia/fonatur-backend/uploads/etapa2/" +
-                filePath
-            )
-            .isFile()
-        ) {
-          // Verificar si el archivo ya existe en Google Drive
+        if (fs.lstatSync(filePath).isFile()) {
+          // Verify if the file already exists on Google Drive
           const existingFiles = await drive.files.list({
             q: `name='${fileName}' and '${currentFolderId}' in parents and trashed=false`,
             fields: "files(id)",
@@ -276,18 +267,15 @@ async function uploadFilesInFolder(authClient, folderPath, parentFolderId) {
           });
 
           if (existingFiles.data.files.length > 0) {
-            // El archivo ya existe en Google Drive, no se duplica
+            // The file already exists on Google Drive, no duplication
             console.log(
-              `El archivo '${fileName}' ya existe en Google Drive. No se duplicará.`
+              `The file '${fileName}' already exists on Google Drive. It will not be duplicated.`
             );
           } else {
-            // El archivo no existe en Google Drive, proceder a subirlo
+            // The file doesn't exist on Google Drive, proceed to upload it
             const media = {
               mimeType: "application/pdf",
-              body: fs.createReadStream(
-                "/home/rodolfobravogarcia/fonatur-backend/uploads/etapa2/" +
-                  filePath
-              ),
+              body: fs.createReadStream(filePath),
             };
 
             const response = await drive.files.create({
@@ -299,19 +287,19 @@ async function uploadFilesInFolder(authClient, folderPath, parentFolderId) {
             });
 
             console.log(
-              `Archivo subido a Google Drive. ID: ${response.data.id}`
+              `File uploaded to Google Drive. ID: ${response.data.id}`
             );
           }
         }
       } catch (error) {
         console.error(
-          "Error al subir el archivo a Google Drive:",
+          "Error uploading the file to Google Drive:",
           error.message
         );
       }
     }
   } catch (error) {
-    console.error("Error al leer la carpeta local:", error.message);
+    console.error("Error reading the local folder:", error.message);
   }
 }
 
