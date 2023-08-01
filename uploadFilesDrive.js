@@ -349,10 +349,10 @@ async function runScript() {
       const data = doc.data();
       const filePathOut = data.filePathOut;
       console.log(filePathOut);
-      const folderPath =
-        "tramo1/contratos/1.2.2Entrega_del_derecho_de_via_(Actas)/T1-CAMP-CAN-SOC-PARC-229/PROPIEDADSOCIAL"; // doc.data().folderPathOut; // Use folderPathOut instead of filePathOut
+      //const folderPath =
+      // "tramo1/contratos/1.2.2Entrega_del_derecho_de_via_(Actas)/T1-CAMP-CAN-SOC-PARC-229/PROPIEDADSOCIAL"; // doc.data().folderPathOut; // Use folderPathOut instead of filePathOut
       //console.log(data);
-      //await uploadFilesInFolder(authClient, folderPath, parentFolderId); // Use uploadFilesInFolder instead of uploadFileWithFolderStructure
+      await uploadFilesInFolder(authClient, filePathOut, parentFolderId); // Use uploadFilesInFolder instead of uploadFileWithFolderStructure
     }
   } catch (error) {
     console.error("Error al ejecutar el script:", error.message);
