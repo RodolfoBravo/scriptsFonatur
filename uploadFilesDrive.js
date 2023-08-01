@@ -208,7 +208,7 @@ async function uploadFilesInFolder(authClient, folderPath, parentFolderId) {
     console.log(filesInFolder);
 
     for (const fileName of filesInFolder) {
-      const filePath = folderPath + fileName; // Corrected the filePath variable
+      const filePath = path.join(folderPath, fileName); // Corrected the filePath variable
       console.log(filePath);
 
       let currentFolderId = parentFolderId;
@@ -255,7 +255,12 @@ async function uploadFilesInFolder(authClient, folderPath, parentFolderId) {
 
       try {
         if (
-          fs.lstatSync("../fonatur-backend/uploads/etapa2/" + filePath).isFile()
+          fs
+            .lstatSync(
+              "/home/rodolfobravogarcia/fonatur-backend/uploads/etapa2/" +
+                filePath
+            )
+            .isFile()
         ) {
           // Verify if the file already exists on Google Drive
           const existingFiles = await drive.files.list({
@@ -273,14 +278,15 @@ async function uploadFilesInFolder(authClient, folderPath, parentFolderId) {
           if (existingFiles.data.files.length > 0) {
             // The file already exists on Google Drive, no duplication
             console.log(
-              `El archivo '${fileName}' ya existe en Google Drive. No se duplicará.`
+              `The file '${fileName}' already exists on Google Drive. It will not be duplicated.`
             );
           } else {
             // The file doesn't exist on Google Drive, proceed to upload it
             const media = {
               mimeType: "application/pdf",
               body: fs.createReadStream(
-                "../fonatur-backend/uploads/etapa2/" + filePath
+                "/home/rodolfobravogarcia/fonatur-backend/uploads/etapa2/" +
+                  filePath
               ),
             };
 
@@ -293,21 +299,22 @@ async function uploadFilesInFolder(authClient, folderPath, parentFolderId) {
             });
 
             console.log(
-              `Archivo subido a Google Drive. ID: ${response.data.id}`
+              `File uploaded to Google Drive. ID: ${response.data.id}`
             );
           }
         }
       } catch (error) {
         console.error(
-          "Error al subir el archivo a Google Drive:",
+          "Error uploading the file to Google Drive:",
           error.message
         );
       }
     }
   } catch (error) {
-    console.error("Error al leer la carpeta local:", error.message);
+    console.error("Error reading the local folder:", error.message);
   }
 }
+
 async function getDocumentsSplit() {
   const collectionRef = admin.firestore().collection("db-split-files");
   const querySnapshot = await collectionRef.get();
