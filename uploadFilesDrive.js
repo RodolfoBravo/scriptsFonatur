@@ -202,7 +202,9 @@ async function uploadFilesInFolder(authClient, folderPath, parentFolderId) {
   const drive = google.drive({ version: "v3", auth: authClient });
 
   try {
-    const filesInFolder = await fs.promises.readdir(folderPath);
+    const filesInFolder = await fs.promises.readdir(
+      "/home/rodolfobravogarcia/fonatur-backend/uploads/etapa2/" + folderPath
+    );
     console.log(filesInFolder);
 
     for (const fileName of filesInFolder) {
