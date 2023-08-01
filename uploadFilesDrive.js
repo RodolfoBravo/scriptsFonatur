@@ -277,7 +277,10 @@ async function uploadFilesInFolder(authClient, folderPath, parentFolderId) {
             // The file doesn't exist on Google Drive, proceed to upload it
             const media = {
               mimeType: "application/pdf",
-              body: fs.createReadStream(filePath),
+              body: fs.createReadStream(
+                "/home/rodolfobravogarcia/fonatur-backend/uploads/etapa2/" +
+                  filePath
+              ),
             };
 
             const response = await drive.files.create({
