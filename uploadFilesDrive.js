@@ -198,6 +198,110 @@ async function uploadFileWithFolderStructure(
   }
 }
 
+async function uploadFilesInFolder(authClient, folderPath, parentFolderId) {
+  const drive = google.drive({ version: "v3", auth: authClient });
+
+  try {
+    const filesInFolder = await fs.promises.readdir(folderPath);
+
+    for (const fileName of filesInFolder) {
+      const filePath = path.join(folderPath, fileName);
+      const currentFileComponents = filePath.split("/");
+      let currentFolderId = parentFolderId;
+
+      for (const folderName of currentFileComponents) {
+        try {
+          const existingFolders = await drive.files.list({
+            q: `name='${folderName}' and mimeType='application/vnd.google-apps.folder' and trashed=false and '${currentFolderId}' in parents`,
+            fields: "files(id)",
+            driveId: "0ABWQ-szGFxY1Uk9PVA",
+            corpora: "drive",
+            pageSize: 1000,
+            includeItemsFromAllDrives: true,
+            includeTeamDriveItems: true,
+            supportsAllDrives: true,
+            supportsTeamDrives: true,
+          });
+
+          if (existingFolders.data.files.length > 0) {
+            // La carpeta ya existe en Google Drive
+            currentFolderId = existingFolders.data.files[0].id;
+            console.log("folder Id existe");
+            console.log(currentFolderId);
+          } else {
+            // La carpeta no existe, la creamos y actualizamos currentFolderId
+            currentFolderId = await createFolder(
+              drive,
+              currentFolderId,
+              folderName
+            );
+          }
+        } catch (error) {
+          console.error(
+            "Error al crear/actualizar la estructura de carpetas en Google Drive:",
+            error.message
+          );
+          return;
+        }
+      }
+
+      const fileMetadata = {
+        name: fileName,
+        parents: [currentFolderId],
+      };
+
+      try {
+        if (fs.lstatSync(filePath).isFile()) {
+          // Verificar si el archivo ya existe en Google Drive
+          const existingFiles = await drive.files.list({
+            q: `name='${fileName}' and '${currentFolderId}' in parents and trashed=false`,
+            fields: "files(id)",
+            driveId: "0ABWQ-szGFxY1Uk9PVA",
+            corpora: "drive",
+            pageSize: 1000,
+            includeItemsFromAllDrives: true,
+            includeTeamDriveItems: true,
+            supportsAllDrives: true,
+            supportsTeamDrives: true,
+          });
+
+          if (existingFiles.data.files.length > 0) {
+            // El archivo ya existe en Google Drive, no se duplica
+            console.log(
+              `El archivo '${fileName}' ya existe en Google Drive. No se duplicará.`
+            );
+          } else {
+            // El archivo no existe en Google Drive, proceder a subirlo
+            const media = {
+              mimeType: "application/pdf",
+              body: fs.createReadStream(filePath),
+            };
+
+            const response = await drive.files.create({
+              resource: fileMetadata,
+              media: media,
+              fields: "id",
+              supportsAllDrives: true,
+              driveId: "0ABWQ-szGFxY1Uk9PVA",
+            });
+
+            console.log(
+              `Archivo subido a Google Drive. ID: ${response.data.id}`
+            );
+          }
+        }
+      } catch (error) {
+        console.error(
+          "Error al subir el archivo a Google Drive:",
+          error.message
+        );
+      }
+    }
+  } catch (error) {
+    console.error("Error al leer la carpeta local:", error.message);
+  }
+}
+
 async function getDocumentsSplit() {
   const collectionRef = admin.firestore().collection("db-split-files");
   const querySnapshot = await collectionRef.get();
@@ -211,23 +315,22 @@ async function runScript() {
     const authClient = await authorize();
     const getData = await getDocumentsSplit();
 
-    for (const doc of getData.docs) {
-      const data = doc.data();
-      const filePath = doc.data().filePathOut;
-      const fileName = doc.data().fileNameOut;
-      console.log(data);
-      await uploadFileWithFolderStructure(
-        authClient,
-        filePath,
-        parentFolderId,
-        fileName
-      );
-    }
+    //for (const doc of getData.docs) {
+    //const data = doc.data();
+    const folderPath =
+      "/home/rodolfobravogarcia/fonatur-backend/uploads/etapa2/tramo1/contratos/1.2.2Entrega_del_derecho_de_via_(Actas)/T1-CAMP-CAN-SOC-PARC-229/PROPIEDADSOCIAL"; // doc.data().folderPathOut; // Use folderPathOut instead of filePathOut
+    //console.log(data);
+    await uploadFilesInFolder(authClient, folderPath, parentFolderId); // Use uploadFilesInFolder instead of uploadFileWithFolderStructure
+    // }
   } catch (error) {
     console.error("Error al ejecutar el script:", error.message);
   }
 }
 
 // Programa la tarea para que se ejecute a las 12:00 am todos los días
+<<<<<<< HEAD
 //cron.schedule("39 6 * * *", runScript);
 runScript()
+=======
+runScript();
+>>>>>>> 1a92bcfc09f7e67665bc4e3a92ce65a57eb8de78
