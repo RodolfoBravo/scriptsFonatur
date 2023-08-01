@@ -344,8 +344,10 @@ async function runScript() {
     const authClient = await authorize();
     const getData = await getDistinctDocumentsSplit();
 
-    for (const doc of getData.docs) {
+    for (const doc of distinctDocs) {
+      // Accede a los datos del documento y al campo filePathOut
       const data = doc.data();
+      const filePathOut = data.filePathOut;
       const folderPath =
         "tramo1/contratos/1.2.2Entrega_del_derecho_de_via_(Actas)/T1-CAMP-CAN-SOC-PARC-229/PROPIEDADSOCIAL"; // doc.data().folderPathOut; // Use folderPathOut instead of filePathOut
       //console.log(data);
