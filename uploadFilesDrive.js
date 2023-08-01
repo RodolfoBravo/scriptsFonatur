@@ -94,7 +94,7 @@ async function createFolder(drive, parentFolderId, folderName) {
     throw error;
   }
 }
-
+/*
 async function uploadFileWithFolderStructure(
   authClient,
   filePath,
@@ -196,16 +196,18 @@ async function uploadFileWithFolderStructure(
   } catch (error) {
     console.error("Error al subir el archivo a Google Drive:", error.message);
   }
-}
+}*/
 
 async function uploadFilesInFolder(authClient, folderPath, parentFolderId) {
   const drive = google.drive({ version: "v3", auth: authClient });
 
   try {
     const filesInFolder = await fs.promises.readdir(folderPath);
+    console.log(filesInFolder);
 
     for (const fileName of filesInFolder) {
       const filePath = path.join(folderPath, fileName);
+      console.log(filePath);
       const currentFileComponents = filePath.split("/");
       let currentFolderId = parentFolderId;
 
@@ -226,8 +228,7 @@ async function uploadFilesInFolder(authClient, folderPath, parentFolderId) {
           if (existingFolders.data.files.length > 0) {
             // La carpeta ya existe en Google Drive
             currentFolderId = existingFolders.data.files[0].id;
-            console.log("folder Id existe");
-            console.log(currentFolderId);
+            console.log("folder Id existe", currentFolderId);
           } else {
             // La carpeta no existe, la creamos y actualizamos currentFolderId
             currentFolderId = await createFolder(
