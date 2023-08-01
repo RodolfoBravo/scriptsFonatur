@@ -343,14 +343,14 @@ async function runScript() {
   try {
     const authClient = await authorize();
     const getData = await getDistinctDocumentsSplit();
-    console.log(getData);
-    //for (const doc of getData.docs) {
-    //const data = doc.data();
-    const folderPath =
-      "tramo1/contratos/1.2.2Entrega_del_derecho_de_via_(Actas)/T1-CAMP-CAN-SOC-PARC-229/PROPIEDADSOCIAL"; // doc.data().folderPathOut; // Use folderPathOut instead of filePathOut
-    //console.log(data);
-    //await uploadFilesInFolder(authClient, folderPath, parentFolderId); // Use uploadFilesInFolder instead of uploadFileWithFolderStructure
-    // }
+
+    for (const doc of getData.docs) {
+      const data = doc.data();
+      const folderPath =
+        "tramo1/contratos/1.2.2Entrega_del_derecho_de_via_(Actas)/T1-CAMP-CAN-SOC-PARC-229/PROPIEDADSOCIAL"; // doc.data().folderPathOut; // Use folderPathOut instead of filePathOut
+      //console.log(data);
+      //await uploadFilesInFolder(authClient, folderPath, parentFolderId); // Use uploadFilesInFolder instead of uploadFileWithFolderStructure
+    }
   } catch (error) {
     console.error("Error al ejecutar el script:", error.message);
   }
