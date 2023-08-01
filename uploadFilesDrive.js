@@ -344,7 +344,7 @@ async function runScript() {
     const authClient = await authorize();
     const getData = await getDistinctDocumentsSplit();
 
-    for (const doc of distinctDocs) {
+    for (const doc of getData) {
       // Accede a los datos del documento y al campo filePathOut
       const data = doc.data();
       const filePathOut = data.filePathOut;
