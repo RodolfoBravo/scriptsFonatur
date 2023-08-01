@@ -317,10 +317,24 @@ async function uploadFilesInFolder(authClient, folderPath, parentFolderId) {
   }
 }
 
-async function getDocumentsSplit() {
+async function getDistinctDocumentsSplit() {
   const collectionRef = admin.firestore().collection("db-split-files");
-  const querySnapshot = await collectionRef.get();
-  return querySnapshot;
+  const q = collectionRef.where("tramo", "==", "tramo1");
+  const querySnapshot = await q.get();
+
+  const filePathOutMap = {};
+  const distinctDocs = [];
+
+  querySnapshot.forEach((doc) => {
+    const filePathOut = doc.data().filePathOut;
+
+    if (!filePathOutMap[filePathOut]) {
+      filePathOutMap[filePathOut] = true;
+      distinctDocs.push(doc);
+    }
+  });
+
+  return distinctDocs;
 }
 
 const parentFolderId = "1AGaKlnpJfTD54-_PC3tff062g1oW4Qqc";
@@ -328,14 +342,14 @@ const parentFolderId = "1AGaKlnpJfTD54-_PC3tff062g1oW4Qqc";
 async function runScript() {
   try {
     const authClient = await authorize();
-    //const getData = await getDocumentsSplit();
-
+    const getData = await getDistinctDocumentsSplit();
+    console.log(getData);
     //for (const doc of getData.docs) {
     //const data = doc.data();
     const folderPath =
       "tramo1/contratos/1.2.2Entrega_del_derecho_de_via_(Actas)/T1-CAMP-CAN-SOC-PARC-229/PROPIEDADSOCIAL"; // doc.data().folderPathOut; // Use folderPathOut instead of filePathOut
     //console.log(data);
-    await uploadFilesInFolder(authClient, folderPath, parentFolderId); // Use uploadFilesInFolder instead of uploadFileWithFolderStructure
+    //await uploadFilesInFolder(authClient, folderPath, parentFolderId); // Use uploadFilesInFolder instead of uploadFileWithFolderStructure
     // }
   } catch (error) {
     console.error("Error al ejecutar el script:", error.message);
