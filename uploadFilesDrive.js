@@ -255,12 +255,7 @@ async function uploadFilesInFolder(authClient, folderPath, parentFolderId) {
 
       try {
         if (
-          fs
-            .lstatSync(
-              "/home/rodolfobravogarcia/fonatur-backend/uploads/etapa2/" +
-                filePath
-            )
-            .isFile()
+          fs.lstatSync("../fonatur-backend/uploads/etapa2/" + filePath).isFile()
         ) {
           // Verify if the file already exists on Google Drive
           const existingFiles = await drive.files.list({
@@ -285,8 +280,7 @@ async function uploadFilesInFolder(authClient, folderPath, parentFolderId) {
             const media = {
               mimeType: "application/pdf",
               body: fs.createReadStream(
-                "/home/rodolfobravogarcia/fonatur-backend/uploads/etapa2/" +
-                  filePath
+                "../fonatur-backend/uploads/etapa2/" + filePath
               ),
             };
 
