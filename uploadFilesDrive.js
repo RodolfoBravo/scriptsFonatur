@@ -94,7 +94,7 @@ async function createFolder(drive, parentFolderId, folderName) {
     throw error;
   }
 }
-
+/*
 async function uploadFileWithFolderStructure(
   authClient,
   filePath,
@@ -196,16 +196,18 @@ async function uploadFileWithFolderStructure(
   } catch (error) {
     console.error("Error al subir el archivo a Google Drive:", error.message);
   }
-}
+}*/
 
 async function uploadFilesInFolder(authClient, folderPath, parentFolderId) {
   const drive = google.drive({ version: "v3", auth: authClient });
 
   try {
     const filesInFolder = await fs.promises.readdir(folderPath);
+    console.log(filesInFolder);
 
     for (const fileName of filesInFolder) {
       const filePath = path.join(folderPath, fileName);
+      console.log(filePath);
       const currentFileComponents = filePath.split("/");
       let currentFolderId = parentFolderId;
 
@@ -226,8 +228,7 @@ async function uploadFilesInFolder(authClient, folderPath, parentFolderId) {
           if (existingFolders.data.files.length > 0) {
             // La carpeta ya existe en Google Drive
             currentFolderId = existingFolders.data.files[0].id;
-            console.log("folder Id existe");
-            console.log(currentFolderId);
+            console.log("folder Id existe", currentFolderId);
           } else {
             // La carpeta no existe, la creamos y actualizamos currentFolderId
             currentFolderId = await createFolder(
@@ -274,7 +275,10 @@ async function uploadFilesInFolder(authClient, folderPath, parentFolderId) {
             // El archivo no existe en Google Drive, proceder a subirlo
             const media = {
               mimeType: "application/pdf",
-              body: fs.createReadStream(filePath),
+              body: fs.createReadStream(
+                "/home/rodolfobravogarcia/fonatur-backend/uploads/etapa2/" +
+                  filePath
+              ),
             };
 
             const response = await drive.files.create({
@@ -313,12 +317,12 @@ const parentFolderId = "1AGaKlnpJfTD54-_PC3tff062g1oW4Qqc";
 async function runScript() {
   try {
     const authClient = await authorize();
-    const getData = await getDocumentsSplit();
+    //const getData = await getDocumentsSplit();
 
     //for (const doc of getData.docs) {
     //const data = doc.data();
     const folderPath =
-      "/home/rodolfobravogarcia/fonatur-backend/uploads/etapa2/tramo1/contratos/1.2.2Entrega_del_derecho_de_via_(Actas)/T1-CAMP-CAN-SOC-PARC-229/PROPIEDADSOCIAL"; // doc.data().folderPathOut; // Use folderPathOut instead of filePathOut
+      "tramo1/contratos/1.2.2Entrega_del_derecho_de_via_(Actas)/T1-CAMP-CAN-SOC-PARC-229/PROPIEDADSOCIAL"; // doc.data().folderPathOut; // Use folderPathOut instead of filePathOut
     //console.log(data);
     await uploadFilesInFolder(authClient, folderPath, parentFolderId); // Use uploadFilesInFolder instead of uploadFileWithFolderStructure
     // }
