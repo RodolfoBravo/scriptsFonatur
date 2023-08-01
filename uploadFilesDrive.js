@@ -233,11 +233,13 @@ async function uploadFilesInFolder(authClient, folderPath, parentFolderId) {
             console.log("folder Id exists", currentFolderId);
           } else {
             // The folder doesn't exist, so we create it and update currentFolderId
-            currentFolderId = await createFolder(
-              drive,
-              currentFolderId,
-              folderName
-            );
+            if (!folderName.includes(".pdf")) {
+              currentFolderId = await createFolder(
+                drive,
+                currentFolderId,
+                folderName
+              );
+            }
           }
         } catch (error) {
           console.error(
