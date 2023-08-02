@@ -319,7 +319,7 @@ async function uploadFilesInFolder(authClient, folderPath, parentFolderId) {
 
 async function getDistinctDocumentsSplit() {
   const collectionRef = admin.firestore().collection("db-split-files");
-  const q = collectionRef.where("tramo", "==", "tramo7"); // 2-ok 1-inProcess 4-ok, 5-ok, 7 next, 6-next,  3 next
+  const q = collectionRef.where("tramo", "==", "tramo6"); // 2-ok 1-inProcess 4-ok, 5-ok, 7-ok, 6-inProcess,  3 next
   const querySnapshot = await q.get();
 
   const filePathOutMap = {};
