@@ -240,17 +240,17 @@ const foldersIds = [
 
 const tramos = [
   { "1HPVS-T1JQfTGtGxfbTHUcCj2InOV2jFM": "tramo1" },
-  // { "1fi8KzcmfcE2rLLLlSzSZ2ScOluhZjDlg": "tramo2" },
-  // { "1OLRC5f80ezvE5VBXMOvAVcoBlfX2tDue": "tramo3" },
-  // { "1kqgORc0B8TQ-WSLCilMrVz6gIfDH4FgY": "tramo4" },
-  // { "11wbdMSdlIslhe9aUxufO26MTJFscKZBR": "tramo5" },
-  // { "1Mq3cJWt3aT3ib9TPC0SKSKUhyB7WEORp": "tramo6" },
-  // { "1DNrG6p9MnLbQMVYDamWuhjUhgENsXnF5": "tramo7" },
+  { "1fi8KzcmfcE2rLLLlSzSZ2ScOluhZjDlg": "tramo2" },
+  { "1OLRC5f80ezvE5VBXMOvAVcoBlfX2tDue": "tramo3" },
+  { "1kqgORc0B8TQ-WSLCilMrVz6gIfDH4FgY": "tramo4" },
+  { "11wbdMSdlIslhe9aUxufO26MTJFscKZBR": "tramo5" },
+  { "1Mq3cJWt3aT3ib9TPC0SKSKUhyB7WEORp": "tramo6" },
+  { "1DNrG6p9MnLbQMVYDamWuhjUhgENsXnF5": "tramo7" },
 ];
 
 const runScript = () => {
   foldersIds.forEach((folderID) => {
-    // sendNotification(folderID, 0);
+    sendNotification(folderID, 0);
     authorize()
       .then((authClient) =>
         listAndDownloadFiles(
@@ -259,11 +259,11 @@ const runScript = () => {
           authClient
         )
       )
-      //.then(() => sendNotification(folderID, 1))
+      .then(() => sendNotification(folderID, 1))
       .catch(console.error);
   });
 };
 
 // Programa la tarea para que se ejecute a las 12:00 am todos los días
-//ron.schedule("34 23 * * *", runScript);
+//cron.schedule("20 06 * * *", runScript);
 runScript();
