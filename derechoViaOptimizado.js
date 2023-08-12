@@ -20,7 +20,7 @@ async function listReadPaths() {
         "/home/rodolfobravogarcia/fonatur-backend/" + drivePath + ".pdf";
 
       if (await fileExists(newDrivePath)) {
-        console.log("El archivo existe en el servidor");
+        //console.log("El archivo existe en el servidor");
         j++;
 
         if (newDrivePath !== undefined && separationPath !== undefined) {
@@ -64,8 +64,8 @@ async function listReadPaths() {
                   newFilePath
               );
               console.log("Archivo copiado");*/
-              console.log(dataSingleDoc);
-              //await saveData(dataSingleDoc, tramoNew);
+              //console.log(dataSingleDoc);
+              await saveData(dataSingleDoc, tramoNew);
               console.log(i);
             } catch (e) {
               console.log("Error: " + e.message);
