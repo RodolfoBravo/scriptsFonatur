@@ -6,6 +6,8 @@ const filePath = "./newListPaths2.csv"; // Ruta del archivo CSV
 const util = require("util");
 
 async function listReadPaths() {
+  // Llamar a esta función al inicio del script para cargar los datos de Firestore
+  await loadDataFromFirestore();
   console.log("Comenzando el script");
   try {
     const stream = fs.createReadStream(filePath).pipe(csvParser());
@@ -90,38 +92,31 @@ async function fileExists(filePath) {
   }
 }
 
-async function dirExists(dirPath) {
+// Declarar una variable global para almacenar los datos de la consulta
+let dbData = [];
+
+// Llamar a esta función al inicio del script para cargar los datos de Firestore
+async function loadDataFromFirestore() {
   try {
-    await fs.promises.access(dirPath, fs.constants.R_OK | fs.constants.W_OK);
-    return true;
-  } catch (err) {
-    return false;
+    const collectionRef = admin.firestore().collection("db-split-files");
+    const querySnapshot = await collectionRef.get();
+    dbData = querySnapshot.docs.map((doc) => doc.data());
+  } catch (error) {
+    console.error("Error al cargar los datos de Firestore:", error);
   }
 }
 
-const mkdirAsync = util.promisify(fs.mkdir);
-const copyFileAsync = util.promisify(fs.copyFile);
-
-// Función para verificar si un documento existe en Firestore
-async function checkIfDocumentExists(documentId) {
-  const collectionRef = admin.firestore().collection("db-split-files");
-  const querySnapshot = await collectionRef
-    .where("fileNameIn", "==", documentId)
-    .limit(1)
-    .get();
-  return querySnapshot.empty;
+// Función para verificar si un documento existe en los datos cargados de Firestore
+function checkIfDocumentExists(documentId) {
+  return dbData.some((data) => data.fileNameIn === documentId);
 }
 
 // Función para guardar datos en Firestore
 const saveData = async (dataDoc, tramoNew) => {
   console.log(dataDoc);
   try {
-    const collectionRef = await admin.firestore().collection("db-split-files");
-    const querySnapshot = await collectionRef.get();
-    const documentCount = querySnapshot.size;
-    const serial = documentCount.toString().padStart(5, "0");
     const now = new Date();
-    const idNew = `${serial}${now.getFullYear()}${
+    const idNew = `${now.getFullYear()}${
       now.getMonth() + 1
     }${now.getDate()}-${now.getHours()}${now.getMinutes()}${now.getSeconds()}${now.getMilliseconds()}`;
     console.log(idNew);
