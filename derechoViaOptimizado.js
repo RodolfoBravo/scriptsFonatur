@@ -2,7 +2,7 @@ const fs = require("fs");
 const path = require("path");
 const csvParser = require("csv-parser");
 const admin = require("./firebaseConfig");
-const filePath = "./newListPaths.csv"; // Ruta del archivo CSV
+const filePath = "./newListPaths2.csv"; // Ruta del archivo CSV
 const util = require("util");
 
 async function listReadPaths() {
@@ -54,7 +54,7 @@ async function listReadPaths() {
               newFilePath2;
 
             try {
-              if (!(await dirExists(pathDesting))) {
+              /*if (!(await dirExists(pathDesting))) {
                 await mkdirAsync(pathDesting, { recursive: true });
               }
 
@@ -63,9 +63,9 @@ async function listReadPaths() {
                 "/home/rodolfobravogarcia/fonatur-backend/uploads/etapa2/" +
                   newFilePath
               );
-
-              console.log("Archivo copiado");
-              await saveData(dataSingleDoc, tramoNew);
+              console.log("Archivo copiado");*/
+              console.log(dataSingleDoc);
+              //await saveData(dataSingleDoc, tramoNew);
               console.log(i);
             } catch (e) {
               console.log("Error: " + e.message);
