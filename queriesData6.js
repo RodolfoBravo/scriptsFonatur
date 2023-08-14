@@ -14,22 +14,29 @@ async function findAndSaveDuplicateDocs() {
     for (const doc of querySnapshot.docs) {
       const data = doc.data();
       const filePathIn = data.filePathIn;
+      const filePathOut = data.filePathOut;
+      var filePathOutSplit = filePathOut.split("/");
+      if (
+        filePathOutSplit[0] == "tramo6" &&
+        filePathOutSplit[1] == "contratos" &&
+        filePathOutSplit[2] == "1.2.2Entrega_del_derecho_de_via_(Actas)"
+      ) {
+        if (seenFiles.has(filePathIn)) {
+          const deletePromise = await doc.ref
+            .delete()
+            .then(() => {
+              console.log(`Documento eliminado: ${doc.id}`);
+              i++;
+              console.log(i);
+            })
+            .catch((error) => {
+              console.error(`Error al eliminar doc ${doc.id}:`, error);
+            });
 
-      if (seenFiles.has(filePathIn)) {
-        const deletePromise = await doc.ref
-          .delete()
-          .then(() => {
-            console.log(`Documento eliminado: ${doc.id}`);
-            i++;
-            console.log(i);
-          })
-          .catch((error) => {
-            console.error(`Error al eliminar doc ${doc.id}:`, error);
-          });
-
-        deletePromises.push(deletePromise);
-      } else {
-        seenFiles.add(filePathIn);
+          deletePromises.push(deletePromise);
+        } else {
+          seenFiles.add(filePathIn);
+        }
       }
     }
 
