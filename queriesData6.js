@@ -16,6 +16,7 @@ async function findAndSaveDuplicateDocs() {
       const filePathIn = data.filePathIn;
       const filePathOut = data.filePathOut;
       var filePathOutSplit = filePathOut.split("/");
+      console.log(filePathOutSplit);
       if (
         filePathOutSplit[0] == "tramo6" &&
         filePathOutSplit[1] == "contratos" &&
