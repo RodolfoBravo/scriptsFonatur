@@ -51,30 +51,31 @@ async function listReadPaths() {
           //console.log(existDB);
           if (!existDB) {
             j++;
-            /*const fileName = path.basename(dataSingleDoc[0].doc_name_out);
+            const fileName = path.basename(dataSingleDoc[0].doc_name_out);
             const newFilePath = path.join(dataSingleDoc[0].path_out, fileName);
             const newFilePath2 = path.join(dataSingleDoc[0].path_out);
             const pathDesting =
               "/home/rodolfobravogarcia/fonatur-backend/uploads/etapa2/" +
               newFilePath2;
+            const pathDestingFile =
+              "/home/rodolfobravogarcia/fonatur-backend/uploads/etapa2/" +
+              newFilePath;
 
             try {
               if (!(await dirExists(pathDesting))) {
                 await mkdirAsync(pathDesting, { recursive: true });
               }
-
-              await copyFileAsync(
-                newDrivePath,
-                "/home/rodolfobravogarcia/fonatur-backend/uploads/etapa2/" +
-                  newFilePath
-              );
-              console.log("Archivo copiado");
+              const flag = await fileExists(pathDestingFile);
+              if (!flag) {
+                await copyFileAsync(newDrivePath, pathDestingFile);
+                console.log("Archivo copiado");
+              }
               //console.log(dataSingleDoc);
               await saveData(dataSingleDoc, tramoNew);
               console.log(i);
             } catch (e) {
               console.log("Error: " + e.message);
-            }*/
+            }
           }
         }
       }
