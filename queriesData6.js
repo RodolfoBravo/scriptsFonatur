@@ -16,7 +16,7 @@ async function findAndSaveDuplicateDocs() {
       const filePathIn = data.filePathIn;
       const filePathOut = data.filePathOut;
       var filePathOutSplit = filePathOut.split("/");
-      console.log(filePathOutSplit);
+      //console.log(filePathOutSplit);
       if (
         filePathOutSplit[0] == "tramo6" &&
         filePathOutSplit[1] == "contratos" &&
@@ -24,7 +24,7 @@ async function findAndSaveDuplicateDocs() {
       ) {
         if (seenFiles.has(filePathIn)) {
           console.log("File duplicate");
-          /* const deletePromise = await doc.ref
+          const deletePromise = await doc.ref
             .delete()
             .then(() => {
               console.log(`Documento eliminado: ${doc.id}`);
@@ -35,7 +35,6 @@ async function findAndSaveDuplicateDocs() {
               console.error(`Error al eliminar doc ${doc.id}:`, error);
             });
           deletePromises.push(deletePromise);
-          */
         } else {
           seenFiles.add(filePathIn);
         }
