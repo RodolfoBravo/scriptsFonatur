@@ -23,7 +23,6 @@ async function listReadPaths() {
 
       if (await fileExists(newDrivePath)) {
         //console.log("El archivo existe en el servidor");
-        j++;
 
         if (newDrivePath !== undefined && separationPath !== undefined) {
           const drivePathseparation = drivePath.split("/");
@@ -46,9 +45,13 @@ async function listReadPaths() {
               path_out: pathOutFinal,
             },
           ];
-
-          if (await checkIfDocumentExists(dataSingleDoc[0].doc_name_in)) {
-            const fileName = path.basename(dataSingleDoc[0].doc_name_out);
+          const existDB = dbData.some(
+            (data) => data.fileNameIn === dataSingleDoc[0].doc_name_in
+          );
+          //console.log(existDB);
+          if (!existDB) {
+            j++;
+            /*const fileName = path.basename(dataSingleDoc[0].doc_name_out);
             const newFilePath = path.join(dataSingleDoc[0].path_out, fileName);
             const newFilePath2 = path.join(dataSingleDoc[0].path_out);
             const pathDesting =
@@ -56,7 +59,7 @@ async function listReadPaths() {
               newFilePath2;
 
             try {
-              /*if (!(await dirExists(pathDesting))) {
+              if (!(await dirExists(pathDesting))) {
                 await mkdirAsync(pathDesting, { recursive: true });
               }
 
@@ -65,13 +68,13 @@ async function listReadPaths() {
                 "/home/rodolfobravogarcia/fonatur-backend/uploads/etapa2/" +
                   newFilePath
               );
-              console.log("Archivo copiado");*/
+              console.log("Archivo copiado");
               //console.log(dataSingleDoc);
               await saveData(dataSingleDoc, tramoNew);
               console.log(i);
             } catch (e) {
               console.log("Error: " + e.message);
-            }
+            }*/
           }
         }
       }
@@ -106,11 +109,6 @@ async function loadDataFromFirestore() {
   }
 }
 
-// Función para verificar si un documento existe en los datos cargados de Firestore
-function checkIfDocumentExists(documentId) {
-  return dbData.some((data) => data.fileNameIn === documentId);
-}
-
 // Función para guardar datos en Firestore
 const saveData = async (dataDoc, tramoNew) => {
   console.log(dataDoc);
@@ -137,24 +135,6 @@ const saveData = async (dataDoc, tramoNew) => {
         estatus: "Nuevo",
         checklist: false,
       });
-
-    const collectionRefUpdate = await admin
-      .firestore()
-      .collection("db-structure-files-split");
-    const q = collectionRefUpdate
-      .where("subCategoria", "==", "1.2.2Entrega_del_derecho_de_via_(Actas)")
-      .where("tramo", "==", tramoNew);
-    const querySnapshot2 = await q.get();
-    querySnapshot2.forEach(async (doc) => {
-      console.log(doc.data());
-      const docRef = doc.ref;
-      const countFiles = doc.data().files;
-      const updatedData = {
-        files: countFiles + 1,
-      };
-
-      await docRef.update(updatedData);
-    });
     console.log(
       "----------------------- Documento Guardado ok -------------------"
     );
