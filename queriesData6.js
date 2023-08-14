@@ -22,7 +22,8 @@ async function findAndSaveDuplicateDocs() {
         filePathOutSplit[2] == "1.2.2Entrega_del_derecho_de_via_(Actas)"
       ) {
         if (seenFiles.has(filePathIn)) {
-          const deletePromise = await doc.ref
+          console.log("File duplicate");
+          /* const deletePromise = await doc.ref
             .delete()
             .then(() => {
               console.log(`Documento eliminado: ${doc.id}`);
@@ -33,6 +34,7 @@ async function findAndSaveDuplicateDocs() {
               console.error(`Error al eliminar doc ${doc.id}:`, error);
             });
           deletePromises.push(deletePromise);
+          */
         } else {
           seenFiles.add(filePathIn);
         }
