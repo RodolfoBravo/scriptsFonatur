@@ -19,11 +19,7 @@ async function findAndSaveDuplicateDocs() {
       var fileComplete = filePathOut + "/" + fileNameOut;
       var filePathOutSplit = filePathOut.split("/");
       //console.log(filePathOutSplit);
-      if (
-        //filePathOutSplit[0] == "tramo6" &&
-        //filePathOutSplit[1] == "contratos" &&
-        filePathOutSplit[2] == "1.2.2Entrega_del_derecho_de_via_(Actas)"
-      ) {
+      if (filePathOutSplit[2] == "1.2.2Entrega_del_derecho_de_via_(Actas)") {
         //if (seenFiles.has(filePathIn)) {
         //console.log("File duplicate");
         i++;
