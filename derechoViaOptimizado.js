@@ -96,6 +96,18 @@ async function fileExists(filePath) {
   }
 }
 
+async function dirExists(dirPath) {
+  try {
+    await fs.promises.access(dirPath, fs.constants.R_OK | fs.constants.W_OK);
+    return true;
+  } catch (err) {
+    return false;
+  }
+}
+
+const mkdirAsync = util.promisify(fs.mkdir);
+const copyFileAsync = util.promisify(fs.copyFile);
+
 // Declarar una variable global para almacenar los datos de la consulta
 let dbData = [];
 
