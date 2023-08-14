@@ -41,7 +41,7 @@ async function findAndSaveDuplicateDocs() {
     }
 
     // Esperar a que todas las operaciones de eliminación se completen antes de continuar
-    //await Promise.all(deletePromises);
+    await Promise.all(deletePromises);
     console.log(i);
     //console.log("Documentos duplicados encontrados y eliminados.");
   } catch (error) {
