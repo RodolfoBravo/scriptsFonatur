@@ -32,7 +32,6 @@ async function findAndSaveDuplicateDocs() {
             .catch((error) => {
               console.error(`Error al eliminar doc ${doc.id}:`, error);
             });
-
           deletePromises.push(deletePromise);
         } else {
           seenFiles.add(filePathIn);
