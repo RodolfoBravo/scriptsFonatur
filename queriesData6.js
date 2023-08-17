@@ -3,7 +3,7 @@ const admin = require("./firebaseConfig");
 async function findAndSaveDuplicateDocs() {
   const collectionRef = admin.firestore().collection("db-split-files");
   const querySnapshot = await collectionRef
-    //.where("tramo", "==", "tramo6")
+    .where("tramo", "==", "tramo7")
     .get();
 
   const seenFiles = new Set();
@@ -23,7 +23,7 @@ async function findAndSaveDuplicateDocs() {
         //if (seenFiles.has(filePathIn)) {
         //console.log("File duplicate");
         i++;
-        const deletePromise = await doc.ref
+        /*const deletePromise = await doc.ref
           .delete()
           .then(() => {
             console.log(`Documento eliminado: ${doc.id}`);
@@ -34,14 +34,14 @@ async function findAndSaveDuplicateDocs() {
             console.error(`Error al eliminar doc ${doc.id}:`, error);
           });
         deletePromises.push(deletePromise);
-        /*} else {
+        } else {
           seenFiles.add(filePathIn);
         }*/
       }
     }
 
     // Esperar a que todas las operaciones de eliminación se completen antes de continuar
-    await Promise.all(deletePromises);
+    //await Promise.all(deletePromises);
     console.log(i);
     //console.log("Documentos duplicados encontrados y eliminados.");
   } catch (error) {
