@@ -2,7 +2,7 @@ const fs = require("fs");
 const path = require("path");
 const csvParser = require("csv-parser");
 const admin = require("./firebaseConfig");
-const filePath = "./newListPaths2.csv"; // Ruta del archivo CSV
+const filePath = "./derechoViaV2.csv"; // Ruta del archivo CSV
 const util = require("util");
 
 async function listReadPaths() {
@@ -46,7 +46,7 @@ async function listReadPaths() {
             },
           ];
           const existDB = dbData.some(
-            (data) => data.fileNameIn === dataSingleDoc[0].doc_name_in
+            data => data.fileNameIn === dataSingleDoc[0].doc_name_in
           );
           //console.log(existDB);
           if (!existDB) {
@@ -55,10 +55,10 @@ async function listReadPaths() {
             const newFilePath = path.join(dataSingleDoc[0].path_out, fileName);
             const newFilePath2 = path.join(dataSingleDoc[0].path_out);
             const pathDesting =
-              "/home/rodolfobravogarcia/fonatur-backend/uploads/etapa2/" +
+              "/home/rodolfobravogarcia/fonatur-backend/uploads/etapa2_pre/" +
               newFilePath2;
             const pathDestingFile =
-              "/home/rodolfobravogarcia/fonatur-backend/uploads/etapa2/" +
+              "/home/rodolfobravogarcia/fonatur-backend/uploads/etapa2_pre/" +
               newFilePath;
 
             try {
